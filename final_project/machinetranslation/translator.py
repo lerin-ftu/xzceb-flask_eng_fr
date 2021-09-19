@@ -37,4 +37,20 @@ def french_to_english(text1):
         model_id='fr-en'
     ).get_result()
     return englishtranslation.get("translation")[0].get("translation")
+
+def english_to_french(english_text):
+    """
+    This funtion translates english to french
+    """
+    translation = language_translator.translate(text=english_text, model_id='en-fr').get_result()
+    frenchText=translation['translations'][0]['translation']
+    return frenchText
+
+def french_to_english(french_text):
+    """
+    This funtion translates french to english
+    """
+    translation = language_translator.translate(text=french_text, model_id='fr-en').get_result()
+    englishText=translation['translations'][0]['translation']
+    return englishText
     
