@@ -1,5 +1,4 @@
 """Translator module."""
-import json
 import os
 from ibm_watson import LanguageTranslatorV3
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -10,47 +9,31 @@ load_dotenv()
 apikey = os.environ['apikey']
 url = os.environ['url']
 
-authenticator = IAMAuthenticator('{apikey}')
+authenticator = IAMAuthenticator('yopxMdteFYOjhmR78ImmpqgtMH9I3ySo95BzG-EJRAwg')
 language_translator = LanguageTranslatorV3(
     version='2018-05-01',
     authenticator=authenticator
 )
 
-language_translator.set_service_url('{url}')
-
+language_translator.set_service_url('https://api.us-south.language-translator.watson.cloud.ibm.com/instances/77e9edfe-27bf-4362-a5a4-6c9e83087504')
 def english_to_french(text1):
     """
     This funtion translates english to french
     """
-    frenchtranslation = language_translator.translate(
+    translation = language_translator.translate(
         text=text1,
         model_id='en-fr'
     ).get_result()
-    return frenchtranslation.get("translation")[0].get("translation")
+    frenchtranslation = translation.get("translation")[0].get("translation")
+    return frenchtranslation
 
 def french_to_english(text1):
     """
     This funtion translates french to english
     """
-    englishtranslation = language_translator.translate(
+    translation = language_translator.translate(
         text=text1,
         model_id='fr-en'
     ).get_result()
-    return englishtranslation.get("translation")[0].get("translation")
-
-def english_to_french(english_text):
-    """
-    This funtion translates english to french
-    """
-    translation = language_translator.translate(text=english_text, model_id='en-fr').get_result()
-    frenchText=translation['translations'][0]['translation']
-    return frenchText
-
-def french_to_english(french_text):
-    """
-    This funtion translates french to english
-    """
-    translation = language_translator.translate(text=french_text, model_id='fr-en').get_result()
-    englishText=translation['translations'][0]['translation']
-    return englishText
-    
+    englishtranslation = translation.get("translation")[0].get("translation")
+    return englishtranslation
